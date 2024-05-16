@@ -1,0 +1,141 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Collaboration Website</title>
+    <!-- Add any necessary CSS files or styles here -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            /* background-color: #333; */
+            color: #000000;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #000;
+            padding: 10px;
+            text-align: right;
+            height: 84px; /* Align links to the right */
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 45px;
+            position: relative;
+            top: 27px;
+        }
+
+        .logo {
+            float: left; /* Align logo to the left */
+            margin-left: 20px; /* Add margin for spacing */
+            color: #fff;
+            text-decoration: none;
+            font-size: 24px; /* Adjust font size as needed */
+        }
+
+        .content {
+            padding: 20px;
+            float: right; /* Align content to the right */
+            width: calc(100% - 200px); /* Adjust width based on image width and margin */
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .logo img {
+            width: 114px;
+            margin-left: 20px; /* Adjust margin for image */
+            height: 101px;
+        }
+
+        section {
+            text-align: center;
+    margin-left: 190px;
+        }
+
+        .feature {
+            display: inline-block;
+            width: 30%;
+            margin: 10px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        body{
+            background-image: linear-gradient(45deg, #ee9ca7 0%, #ffdde1 100%);
+            height: 838px;
+        }
+        .content{
+            display: flex;
+        }
+
+        .image{
+            position: absolute;
+            right: 890px;
+        }
+    </style>
+</head>
+<body>
+<script>
+
+{% for m in messages %}
+      alert('{{ m }}');
+{% endfor %}
+
+</script>
+    <a href="#" class="logo">
+        <img src="{% static 'images/img-logo.png' %}">
+    </a>
+
+    <nav>
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'about' %}">About</a>
+        <a href="{% url 'login' %}">Login</a>
+    </nav>
+    <header>
+        <!-- <h1>ABOUT US</h1> -->
+    </header>
+    <div class="content">
+        <div class="image">
+            <img src="{% static 'images/about.png' %}">
+        </div>
+        <section>
+            <h2>ABOUT US</h2>
+            <div class="feature">
+                <h3>Group Management</h3>
+                <p>Create and manage groups for collaborative projects.</p>
+            </div>
+            <div class="feature">
+                <h3>Task Tracking</h3>
+                <p>Track tasks and progress within your groups.</p>
+            </div>
+            <div class="feature">
+                <h3>Document Sharing</h3>
+                <p>Share documents securely within your collaboration groups.</p>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>

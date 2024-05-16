@@ -1,0 +1,274 @@
+{% load static %}
+{% include 'cadmin/header.html' %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Icon Test</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+    body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    /* background: #e6cca4; Added font-family for better compatibility */    
+    background-image: linear-gradient(45deg, #ee9ca7 0%, #ffdde1 100%);
+}
+
+/* Basic CSS for the navigation bar */
+.navbar {
+    background-color: #000000;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.navbar a {
+    float: right;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+/* Hamburger icon styles */
+.icon {
+    display: none;
+    float: right;
+    margin-right: 20px;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    position: relative;
+}
+
+.icon::after  {
+    content: '';
+    position: absolute;
+    background-color: white;
+    height: 2px;
+    /* width: 30px; */
+    /* top: 50%; */
+    /* left: 50%; */
+    transform: translate(-50%, -50%);
+}
+
+
+/* .icon::before {
+    display: none;
+} */
+
+.icon::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Media query for mobile view */
+@media (min-width: 601px) {
+    .icon {
+        display: none;
+    }
+
+    .navbar a {
+        float: right;
+    }
+}
+
+@media (max-width: 600px) {
+    .navbar a:not(.icon) {
+        display: none; /* Hide links except for the icon */
+    }
+
+    .navbar.responsive {
+        position: relative;
+    }
+
+    .navbar.responsive .icon {
+        position: absolute;
+        right: 20px;
+        top: 10px;
+    }
+
+    .navbar.responsive a {
+        float: none;
+        display: block;
+        text-align: center;
+    }
+}
+.collabration{
+    width: 245px;
+    margin: 0 auto;
+    position: relative;
+    margin-bottom: 20px;
+    max-width: 245px;
+    min-width: 245px;
+
+}
+
+.collabration span{
+    padding: 16px 17px 16px 17px;
+    text-align: center;
+    background: #000;
+    color: #fff;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 150px;
+    display: inline-block;
+    position: relative;
+    left: -5px;
+    top: -1px;
+    box-shadow: 0px 7px 0px #3b2c2c;
+}
+.collabration i{
+    padding: 17px 18px 16px 18px;
+    text-align: center;
+    background: #44CAC6;
+    border-radius: 0;
+    color: #000;
+    /* border-top-left-radius: 10px; */
+    /* border-bottom-left-radius: 10px; */
+    box-shadow: 0px 7px 0px #039d98;
+
+}
+.collabration a {
+    cursor: pointer;
+}
+.collabration a:hover span{
+   background: #333;
+}
+ .collabration a:hover i{
+    background: #61efea;
+}
+.collabration a:active span, .collabration a:active i{
+    cursor: pointer;
+    box-shadow: 0 5px #666;
+   transform: translateY(4px);
+}
+
+
+h1 {
+    text-align: center;
+    margin-top: 50px; /* Added margin-top for better spacing */
+}
+
+/* Chat icon styles */
+.comment-modal i {
+    font-size: 22px;
+    background: transparent;
+    color: #000000;
+    cursor: pointer;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    position: relative;
+    top: -38px;
+    left: 250px;
+}
+.comment-modal i:hover, .comment-modal:active i{
+    background-color: transparent;
+    box-shadow: none !important;
+} 
+.comment-modal:hover i{
+    background-color: transparent !important;
+
+}
+a.comment-modal{
+    background-color: transparent;
+}
+.comment-modal{
+    display: inline-block;
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 600px) {
+    .collabration i.fa-comment {
+        padding: 10px; /* Adjust padding for smaller screens */
+        font-size: 18px; /* Adjust font size for smaller screens */
+        right: 5px; /* Adjust right distance for smaller screens */
+    }
+}
+#icon{
+    background-color: #000;
+}
+body{
+            /* background-image: url('{% static "images/background.jpg" %}'); */
+        /* Specify additional background properties if needed */
+        background-size: cover; /* Adjusts the size of the background image */
+        background-repeat: no-repeat; 
+        overflow: hidden;
+        }
+        .outer-collabration{
+            height: 773px;
+        }
+        </style>
+    </head>
+    <body>
+    <script>
+
+{% for m in messages %}
+      alert('{{ m }}');
+{% endfor %}
+
+</script>
+        <!-- Navigation Bar -->
+        <!-- <div class="navbar" id="navbar">
+            <a href="#">CONTACTS</a> 
+            <a href="#">CREATE A TEAM</a>
+            <a href="{% url 'person' %}">ADD MEMBERS</a>
+            <a href="javascript:void(0);" class="icon" onclick="toggleNavbar()" style="display: none;"></a>
+                <i class="fa fa-bars"></i>
+            </a>
+        </a>
+    </div> -->
+        <div class="outer-collabration">
+            <h1>COLLABORATION</h1>
+
+            <div class="collabration">
+                <a href="{% url 'team' %}">
+                    <i class="fa fa-group"></i>
+                    <span>Create GROUP</span>
+                </a>
+            </div>
+
+            {% if all_group %}
+            {% for n in all_group %}
+            <div class="collabration">
+                <a href="/task/{{n.id}}/">
+                    <i class="fa fa-group"></i>
+                    <span>{{ n.groupname }}</span>
+                </a>
+                <a href="/task/{{n.collabId}}/" class="comment-modal">
+                    <!-- Icon for triggering modal -->
+                    <i class="fa fa-comment"></i>
+                </a>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>No data found</p>
+            {% endif %}
+
+
+            
+           
+        </div>
+        <script>
+        function toggleNavbar() {
+            var x = document.getElementById("navbar");
+            if (x.className === "navbar") {
+                x.className += " responsive";
+            } else {
+                x.className = "navbar"; // Remove the "responsive" class here
+            }
+        }
+    // Function to toggle visibility of groups
+    function toggleGroupVisibility(groupId) {
+        var group = document.getElementById(groupId);
+        if (group) {
+            group.style.display = 'block';
+        }
+    }
+
+    // Example: Show Group 2 when Group 1 is created
+    toggleGroupVisibility('group2');
+        </script>
+    </body>
+</html>

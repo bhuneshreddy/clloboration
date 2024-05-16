@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOTIFICATION</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+        .notification {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+        .successbtn {
+            background-color: green;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .rejectbtn {
+            background-color: red;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<script>
+
+{% for m in messages %}
+      alert('{{ m }}');
+{% endfor %}
+
+</script>
+    <div class="notification">
+        <h1>NOTIFICATION</h1>
+        <p>Are you sure you want to join the collaboration?</p>
+        <a href="#" class="successbtn" id="successMessage">ACCEPT</a>
+        <a href="#" class="rejectbtn ">REJECT</a>
+
+        <p id="rejectMessage" style="display: none; color: red;">You have rejected the collaboration.</p>
+        
+    </div>
+
+    <script>
+        // Get the reject button
+        var rejectBtn = document.querySelector('.rejectbtn');
+        var successBtn = document.querySelector('.successbtn');
+
+        // Add click event listener to the reject button
+        rejectBtn.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+
+            // Display rejection message
+            var rejectMessage = document.getElementById('rejectMessage');
+            rejectMessage.style.display = 'block';
+        });
+
+        // Add click event listener to the success button
+        successBtn.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+
+            // Display success message
+            var successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            window.location.href = "{% url 'collab' %}";
+        });
+    </script>
+</body>
+</html>

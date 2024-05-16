@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Notification Page</title>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+        <style>
+        /* Main Style for page */
+        h1 {
+            margin: 24px 0;
+            padding-bottom: 24px;
+            font-size: 32px;
+            color: #262626;
+        }
+
+        #container {
+            text-align: center;
+            margin: 30px 0 30px;
+        }
+
+        #container p {
+            font-size: 13px !important;
+            line-height: 18px;
+            padding-bottom: 20px;
+            width: 50%; /* Adjusted width to half */
+            margin: 0 auto; /* Center align */
+        }
+
+        .button {
+            margin-bottom: 22px;
+        }
+
+        button {
+            padding: 10px;
+            width: 10%;
+            border-radius: 10px;
+            border: 0px;
+            background: #60dfc2;
+            cursor: pointer;
+        }
+
+        /* Plus button styles */
+        .plus-button {
+            display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007BFF;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    text-align: center;
+    line-height: 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    top: 55%;
+    left: 71%;
+        }
+
+        #addNotesForm {
+            display: none;
+            position: fixed; /* Position the form relative to the viewport */
+            top: 50%; /* Position the form at the center vertically */
+            left: 50%; /* Position the form at the center horizontally */
+            transform: translate(-50%, -50%); /* Center the form */
+            background-color: #f2f2f2;
+            padding: 20px;
+            width: 379px;
+            height: 100px;
+            z-index: 9999; /* Ensure it appears on top of other elements */
+        }
+
+        .submit {
+            background-color: green;
+        }
+
+        .cancel {
+            background-color: red;
+        }
+
+        .delete-icon {
+            color: red;
+            cursor: pointer;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+
+        .notification {
+            position: relative;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #ccc;
+            padding-block: 0.25rem;
+            padding-inline: 1.25rem; /* Adjusted padding */
+            border-radius: 4px;
+            max-width: 50%; /* Adjusted maximum width */
+            margin: 0 auto; /* Center align */
+            box-shadow: 1px 1px 5px #959292;
+        }
+
+        .notification-content {
+            margin-bottom: 10px;
+        }
+
+        .notification-buttons {
+            display: flex;
+            justify-content: center;
+        }
+
+        .notification-button {
+            margin: 0 5px;
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #f2f2f2;
+        }
+
+        .notification-button:hover {
+            background-color: #e6e6e6;
+        }
+        </style>
+    </head>
+    <body>
+        <!-- Header included -->
+        {% include 'cadmin/header.html' %}
+        <div id="container">
+            <h1>group1</h1>
+            <div class="button">
+                <button>
+                    <a href="{% url 'task' %}">TASK</a>
+                </button>
+                <button   data-toggle="modal" data-target="#exampleModalCenter">
+                    <a href="{% url 'task1' %}">ACTIVATED</a>
+                </button>
+                <button>COMPLETED</button>
+                <button>VERIFIED</button>
+            </div>
+        </div>
+        <!-- Plus button -->
+        <div class="plus-button">
+            <a onclick="toggleAddNotesForm()">
+                <i class="fas fa-plus"></i>
+            </a>
+        </div>
+        <div class="notification">
+            <p>
+                Default lorem ipsum dolor sit amet, consectetur
+    adipiscing elit lorem ipsum dolor.Pellentesque risus mi, tempus quis placerat ut, porta nec nulla.
+            </p>
+        </div>
+        <!-- Form to add notes -->
+        <div id="addNotesForm">
+            <form>
+                <input type="text" id="noteContent" placeholder="Enter the note">
+                <button type="button" onclick="submitNote()" class="submit">Submit</button>
+                <button type="button" onclick="cancelAddNotes()" class="cancel">Cancel</button>
+            </form>
+        </div>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Activated</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p><b>Activated</b></p>
+                        <p>Task will be activated?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-primary">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
+
+        <script>
+        function confirmActivate() {
+            var confirmation = confirm("Do you want to continue?");
+            if (confirmation) {
+                // If user clicks 'Yes', redirect to another page
+                window.location.href ="{% url 'team' %}"; // Replace with your desired URL
+            }
+        }
+
+        function toggleAddNotesForm() {
+            var form = document.getElementById("addNotesForm");
+            form.style.display = form.style.display === "none" ? "block" : "none";
+        }
+
+        function cancelAddNotes() {
+            var form = document.getElementById("addNotesForm");
+            form.style.display = "none";
+        }
+
+        function submitNote() {
+            var noteContent = document.getElementById("noteContent").value;
+            // Create a new notification div
+            var newNotification = document.createElement("div");
+            newNotification.className = "notification"; // Apply the same class as existing notifications
+            
+            // Create a new <p> element for the note content
+            var newParagraph = document.createElement("p");
+            newParagraph.textContent = noteContent;
+            
+            // Create a delete icon
+            var deleteIcon = document.createElement("i");
+            deleteIcon.className = "fas fa-trash-alt delete-icon";
+            deleteIcon.onclick = function() {
+                // Remove the parent div (notification) when the delete icon is clicked
+                this.parentNode.remove();
+            };
+            
+            // Append the new <p> element to the new notification div
+            newNotification.appendChild(newParagraph);
+            
+            // Append the delete icon before the text
+            newNotification.appendChild(deleteIcon);
+            
+            // Append the new notification div to the container
+            var container = document.getElementById("container");
+            container.appendChild(newNotification);
+            
+            // Clear the input field
+            document.getElementById("noteContent").value = "";
+            
+            // Hide the form
+            var form = document.getElementById("addNotesForm");
+            form.style.display = "none";
+        }
+        </script>
+       
+    </body>
+</html>

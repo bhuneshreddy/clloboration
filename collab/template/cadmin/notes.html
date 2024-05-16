@@ -1,0 +1,287 @@
+{% load static %}
+
+{% include 'cadmin/header.html' %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Notification Page</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <style>
+        /* Main Style for page */
+
+        h1 {
+            margin: 24px 0;
+            padding-bottom: 24px;
+            font-size: 47px;
+            color: #262626;
+        }
+
+        #container {
+            text-align: center;
+            margin: 30px 0 30px;
+        }
+
+        #container p {
+            font-size: 13px !important;
+    line-height: 18px;
+    /* padding-bottom: 20px; */
+    width: 50%;
+    margin: 0 auto;
+    vertical-align: middle;
+    padding-top: 10px;
+    padding-bottom: 10px;
+        }
+
+        #container h2 {
+            font-size: 18px;
+            font-weight: 200;
+        }
+
+        #container a {
+            color: #007BFF;
+        }
+
+        .notification + .notification {
+            margin-top: 25px;
+        }
+
+        /* Style Start */
+        .notification {
+            --notification-font-icon: 'Font Awesome 6 Free';
+            --notification-color: #283C5A;
+            position: relative;
+            border-width: 1px;
+            border-style: solid;
+            border-color: #ccc;
+            padding-block: 0.25rem;
+            padding-inline: 1.25rem; /* Adjusted padding */
+            border-radius: 4px;
+            max-width: 50%; /* Adjusted maximum width */
+            margin: 0 auto; /* Center align */
+            box-shadow: 1px 1px 5px #959292;
+        }
+
+        /* Plus button styles */
+        .plus-button {
+            POSITION: relative;
+    /* top: -649px; */
+    /* left: 133px; */
+    right: 10%;
+        }
+        img{
+            position: fixed;
+    bottom: 0;
+    top: 165px;
+
+    margin-left: 20px;
+
+        }
+
+        /* Navbar for mobile */
+
+
+        @media (max-width: 600px) {
+            .plus-button {
+                display: block; /* Show on smaller screens */
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background-color: #007BFF;
+                color: white;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                font-size: 24px;
+                text-align: center;
+                line-height: 50px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                cursor: pointer;
+            }
+
+            /* .navbar {
+                display: block; /* Show on smaller screens
+            } */
+        }
+
+        /* .plus-button{
+            margin-top: 10%;
+        } */
+        #addNotesForm {
+        display: none;
+        position: fixed; /* Position the form relative to the viewport */
+        top: 50%; /* Position the form at the center vertically */
+        left: 66%; /* Position the form at the center horizontally */
+        transform: translate(-50%, -50%); /* Center the form */
+        background-color: #f2f2f2;
+        padding: 20px;
+        width: 379px;
+        z-index: 9999; /* Ensure it appears on top of other elements */
+        }
+
+
+        .plus-button a{
+            /* margin-left: 80%; */
+    background: blue;
+    color: #fff;
+    width: 19px;
+    height: 19px;
+    border-radius: 59px;
+    padding: 10px;
+    position: fixed;
+    TEXT-ALIGN: center;
+    top: 202px;
+        }
+input:focus{
+    outline: 0;
+}
+input{
+    border: 1px solid #ccc;
+
+}
+#addNotesForm button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-left: 79px;
+    margin-top: 11px;
+}
+
+        .submit{
+            background-color: green;
+        }
+
+        .cancel{
+            background-color: red;
+        }
+        .notification {
+            --notification-font-icon: 'Font Awesome 6 Free';
+    --notification-color: #283C5A;
+    /* position: relative; */
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ccc;
+    padding-block: 0.25rem;
+    padding-inline: 1.25rem;
+    border-radius: 4px;
+    max-width: 35%;
+    /* margin: 0 auto; */
+    box-shadow: 1px 1px 5px #959292;
+    /* margin-left: 47%; */
+    /* margin-top: -3%; */
+    /* top: 104px; */
+    position: relative;
+    left: 240px;
+    top: 101px;
+    background: #ffff;
+        }
+        body{
+            overflow: hidden;
+            /* background: cadetblue; */
+        }
+        .notes{
+            display: flex;
+    justify-content: space-between;
+        }
+        body{
+            /* background-image: url('{% static "images/background.jpg" %}'); */
+        /* Specify additional background properties if needed */
+        background-size: cover; /* Adjusts the size of the background image */
+        background-repeat: no-repeat;
+        background-image: linear-gradient(45deg, #ee9ca7 0%, #ffdde1 100%);
+        }
+
+        .outer-container{
+            height: 773px;
+        }
+        </style>
+    </head>
+    <body>
+    <script>
+
+{% for m in messages %}
+      alert('{{ m }}');
+{% endfor %}
+
+</script>
+       <div class="outer-container">
+        <div id="container">
+            <h1>ALL NOTES</h1>
+        </div>
+           <div class="all_notes">
+                {% if all_notes %}
+                    {% for n in all_notes %}
+                        <div class="notification">
+                            <p>{{ n.note }}</p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                        <div class="notification">
+                             <p style="text-align:center;">Add Notes BY Clicking + Button</p>
+                        </div>
+                {% endif %}
+           </div>
+
+        <!-- Plus button -->
+        <div class="notes">
+            <div class="image">
+                <img src="{% static 'images/addnotes.png' %}">
+            </div>
+            <div class="plus-button">
+                <a onclick="toggleAddNotesForm()">
+                    <i class="fas fa-plus"></i>
+                </a>
+            </div>
+        </div>
+        <!-- Form to add notes -->
+        <div id="addNotesForm">
+            <form action="/addnote/" method="POST">
+                {% csrf_token %}
+                <input type="text" name="note" placeholder="Enter the note">
+                <button type="submit" onclick="submitNote()" class="submit">Submit</button>
+                <button type="button" onclick="cancelAddNotes()"  class="cancel">Cancel</button>
+            </form>
+        </div>
+       </div>
+        <!-- JavaScript for handling click on plus button -->
+        <script>
+        function toggleAddNotesForm() {
+            var form = document.getElementById("addNotesForm");
+            form.style.display = form.style.display === "none" ? "block" : "none";
+        }
+
+        function cancelAddNotes() {
+            var form = document.getElementById("addNotesForm");
+            form.style.display = "none";
+        }
+
+    function submitNote() {
+        var noteContent = document.getElementById("noteContent").value;
+        // Create a new notification div
+        var newNotification = document.createElement("div");
+        newNotification.className = "notification"; // Apply the same class as existing notifications
+
+        // Create a new <p> element for the note content
+        var newParagraph = document.createElement("p");
+        newParagraph.textContent = noteContent;
+
+        // Append the new <p> element to the new notification div
+        newNotification.appendChild(newParagraph);
+
+        // Append the new notification div to the container
+        var container = document.getElementById("container");
+        container.appendChild(newNotification);
+
+        // Clear the input field
+        document.getElementById("noteContent").value = "";
+
+        // Hide the form
+        var form = document.getElementById("addNotesForm");
+        form.style.display = "none";
+    }
+        </script>
+    </body>
+</html>

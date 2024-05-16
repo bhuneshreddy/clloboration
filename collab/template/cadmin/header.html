@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Navigation Bar</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <style>
+        body {
+            margin: 0;
+        }
+
+        /* Basic CSS for the navigation bar */
+        .navbar {
+            background-color: #000000;
+    overflow: hidden;
+    padding: 10px;
+    height: 80px;
+        }
+
+        .navbar a {
+            float: right;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        /* Hamburger icon styles */
+        .icon {
+            display: none;
+            float: right;
+            margin-right: 20px;
+            height: 40px;
+            width: 40px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .icon i {
+            font-size: 24px;
+        }
+
+        /* Media query for mobile view */
+        @media (min-width: 601px) {
+            .icon {
+                display: none;
+            }
+
+            .navbar a {
+                float: right;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar a:not(.icon) {
+                display: none; /* Hide links except for the icon */
+            }
+
+            .navbar.responsive {
+                position: relative;
+            }
+
+            .navbar.responsive .icon {
+                position: absolute;
+                right: 20px;
+                top: 10px;
+                display: block;
+            }
+
+            .navbar.responsive a {
+                float: none;
+                display: block;
+                text-align: center;
+            }
+        }
+        
+        /* CSS for the add notes form */
+        #addNotesForm {
+            display: none;
+            background-color: #f2f2f2;
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+        #addNotesForm input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        #addNotesForm button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #addNotesForm button.cancel {
+            background-color: #f44336;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="logo">
+            <a href="#" class="logo">
+                <img src="{% static 'images/img-logo.png' %}" style="position: absolute;
+                top: 9px;
+                width: 100px;
+                margin-left: 152px;
+                height: 71px;
+                z-index: 1;">
+        </div>
+        <div class="navbar" id="navbar">
+            <a
+                href="javascript:void(0);"
+                class="icon"
+                onclick="toggleNavbar()"
+                style="
+        DISPLAY: NONE;"
+            >
+                <i style="font-size:24px" class="fa">&#xf0c9;</i>
+            </a>
+            <a href="{% url 'logout' %}">LOGOUT</a>
+            <a href="#">SEARCH</a>
+            <a href="{% url 'list' %}">TO-DO-LIST</a>
+            <a href="{% url 'collab' %}">COLLABRATION</a>
+            <a href="{% url 'addnotes' %}">NOTES</a>
+        </div>
+        <div id="submittedNote"></div>
+        <script>
+        function toggleNavbar() {
+            var x = document.getElementById("navbar");
+            if (x.className === "navbar") {
+                x.className += " responsive";
+            } else {
+                x.className = "navbar";
+            }
+        }
+        </script>
+    </body>
+</html>

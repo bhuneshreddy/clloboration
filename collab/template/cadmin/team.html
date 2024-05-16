@@ -1,0 +1,160 @@
+{% include 'cadmin/header.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            width: 450px;
+            margin: 0 auto;
+        }
+
+        .form {
+            text-align: center;
+    display: inline-block;
+    width: 100%;
+    background: #d4adb3;
+    padding: 30px;
+    border-radius: 12px;
+        }
+
+        label {
+            width: 165px;
+            display: inline-block;
+            text-align: left;
+        }
+
+        input[type="text"] {
+            width: 245px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+
+        input:focus {
+            outline: 0;
+        }
+
+        .id {
+            margin-bottom: 10px;
+        }
+
+        button {
+            margin-top: 28px;
+            padding: 10px;
+            border-radius: 15px;
+            border: 1px solid #fff;
+            width: 188px;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        body{
+            background-image: linear-gradient(45deg, #ee9ca7 0%, #ffdde1 100%);
+            height: 838px;
+        }
+        .outer{
+            display: flex;
+    justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+<script>
+
+{% for m in messages %}
+      alert('{{ m }}');
+{% endfor %}
+
+</script>
+<h1>CREATE TEAM</h1>
+<form action="/add_group/" method="POST">
+    {% csrf_token %}
+    <div class="form">
+<!--        <h3>GROUP 1</h3>-->
+        <div class="id">
+            <label>COLLABRATION ID</label>
+            <input type="text" name="collabid" id="collabId">
+        </div>
+        <div class="name">
+            <label>GROUP NAME</label>
+            <input type="text" name="groupname" id="groupName">
+        </div>
+        <div class="members">
+            <label>Team Members</label>
+            <input type="text"  name="team" id="teamMembers">
+        </div>
+        <div class="outer">
+            <div class="button">
+                <button type="button"><a href="{% url 'person' %}" onclick="storeDataLocally()">ADD MEMBERS</a></button>
+            </div>
+            <div class="create">
+                <button type="submit" onclick="clearSession()">CREATE</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="notification"></div>
+<script>
+    function clearSession() {
+        // Clear localStorage
+        localStorage.removeItem('collabId');
+        localStorage.removeItem('groupName');
+    }
+</script>
+
+<script>
+    // Store the entered data locally
+    function storeDataLocally() {
+        const collabId = document.getElementById("collabId").value;
+        const groupName = document.getElementById("groupName").value;
+        localStorage.setItem('collabId', collabId);
+        localStorage.setItem('groupName', groupName);
+    }
+
+    // Retrieve locally stored data
+    const collabId = localStorage.getItem('collabId');
+    const groupName = localStorage.getItem('groupName');
+
+    // Display locally stored data
+    document.getElementById("collabId").value = collabId;
+    document.getElementById("groupName").value = groupName;
+
+    // Retrieve session data and display in the input field
+    const teamMembers = "{{ request.session.selected_persons|escapejs }}";
+    const formattedTeamMembers = teamMembers.replace(/\[|\]/g, ''); // Remove square brackets
+    document.getElementById("teamMembers").value = formattedTeamMembers;
+
+
+    function createTeam() {
+        // Your create team logic here
+
+        // Display notification in a pop-up dialog
+        showNotification("Team created successfully!");
+
+        // Redirect or perform other actions after creating the team
+        setTimeout(function() {
+            // Your redirection logic here
+        }, 2000); // Redirect after 2 seconds
+
+        // Prevent the default form submission behavior
+        return false;
+    }
+
+    function showNotification(message) {
+        alert(message); // Display message in a pop-up dialog
+    }
+</script>
+</body>
+</html>
